@@ -37,6 +37,8 @@
     <br>
     
     <button type="submit" class="btn btn-primary" name="validate" >S'inscrire</button>
+    
+    <a href="login.php"><p>J'ai déja un compte, je me connecte</p></a>
     </form>
 
 </body>

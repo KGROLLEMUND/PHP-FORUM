@@ -1,7 +1,2 @@
-<?php
-    
+<?php require('actions/securityAction.php'); ?>
 
-    $hello = "World";
-
-?>
-<h1>Hello <?php echo $hello ?> !</h1>
