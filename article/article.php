@@ -11,7 +11,6 @@ if (isset($_GET["id"]) && !empty($_GET['id'])) {
     if (mysqli_num_rows($request) == 0) {
         header('location: ../home.php');
     }
-    
 } else {
     header("Location: ../home.php");
 }

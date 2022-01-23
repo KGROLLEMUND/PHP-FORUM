@@ -32,8 +32,10 @@
         $query = "SELECT * FROM users WHERE pseudo='$pseudo' AND email='$email' AND mdp='$password'";
         $results = mysqli_query($db, $query);
         if (mysqli_num_rows($results) == 1) {
-            $_SESSION['pseudo'] = $pseudo;
-            $_SESSION['success'] = "vous ete connecter";
+            $_SESSION['auth'] = true;
+		    $_SESSION['id'] = $usersInfos['id'];
+		    $_SESSION['email'] = $usersInfos['email'];
+		    $_SESSION['pseudo'] = $usersInfos['pseudo'];
             header('location: ../home.php');
         } else{
         array_push($errors, "Mauvais pseudo ou Password");
