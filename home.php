@@ -34,14 +34,12 @@ $result = mysqli_fetch_array($articles);
           </div> 
           <a href="home.php">Acceuil</a>
           <a href="article/publish_article.php">Publier mon article</a>
+          <a href="register/profil.php">Profil</a>
           <a href="register/login.php?logout='1'" style="color:red">Logout</a>    
         </div>
       </nav>
  </head>
-  <body>
-      
-     
-        
+  <body> 
         <ul>
         <?php
         $db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
@@ -50,7 +48,7 @@ $result = mysqli_fetch_array($articles);
         while ($row = mysqli_fetch_array($request))
         {
         ?>
-          <li><a href="article/article.php?id=<?= $row["id"]?>"><?= stripslashes($row['titre']) ?></a></li>
+          <li><a href="article/article.php?id=<?= $row["id"]?>"><?= stripslashes($row['titre']) ?></a>| <a href="article/supprimer.php?id=<?= $row['id'] ?>">Supprimer</a></li>
         <?php
         }
         ?>  
