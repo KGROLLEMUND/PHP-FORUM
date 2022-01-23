@@ -1,6 +1,26 @@
 <?php
     session_start();
+    
+
+$db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
+
+
+if(isset($_POST['titre'], $_POST['contenu'])) {
+   if(!empty($_POST['titre']) AND !empty($_POST['contenu'])) {
+      
+      $titre = htmlspecialchars(addslashes($_POST['titre']));
+      $contenu = htmlspecialchars(addslashes($_POST['contenu']));
+      
+   } else {
+      $message = 'Veuillez remplir tous les champs';
+   }
+      $sql = $db->prepare("INSERT INTO article (titre, contenu, date_publication) VALUES (?, ?,  NOW())");
+      $sql->execute(array($titre, $contenu));
+   
+   header('Location: article.php'); 
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +29,7 @@
     <nav>
             <div class="navMenu">
                 <div class="header">
-                    <h2>Page d'acceuil</h2>
+                    <h2>Redaction article</h2>
                 </div> 
             <a href="../home.php">Acceuil</a>
             <a href="article/publish_article.php">publier mon article</a>
@@ -18,11 +38,11 @@
     </head>
     <body>
     <div class="container">
-        <form method="POST" action="data.php">
+        <form method="POST">
             Titre: <br/>
-        <input type="text" name="titre" required /><br/>
+        <input type="text" name="titre" placeholder="Titre" /><br/>
             Contenu:<br/>
-        <textarea name="contenu" required ></textarea><br/>
+        <textarea name="contenu" placeholder="Contenu de l'article"></textarea><br />
         <input type="submit" name="submit" value="Publier l'article" />
         </form> 
     
