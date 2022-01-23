@@ -33,6 +33,7 @@ if(isset($_POST['titre'], $_POST['contenu'])) {
                 </div> 
             <a href="../home.php">Acceuil</a>
             <a href="article/publish_article.php">publier mon article</a>
+            <a href="../register/profil.php">Profil</a>
             </div>
         </nav>
     </head>
