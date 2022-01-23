@@ -42,16 +42,26 @@
    	 		array_push($errors, "L'Email existe déjà");
    	    }
    	}
+	if(count($errors) ==0){
+		//inser data into the db
+		if (count($errors) ==0) {
+		$password = md5($password);  //password encryption
 
-   	//inser data into the db
-   	if (count($errors) ==0) {
-   	$password = md5($password);  //password encryption
+		$query = "INSERT INTO users(pseudo,email,mdp) VALUES('$pseudo', '$email', '$password')";	   
+		mysqli_query($db,$query);
 
-
-   	$query = "INSERT INTO users(pseudo,email,mdp) VALUES('$pseudo', '$email', '$password')";	   
-    mysqli_query($db,$query);
-    $_SESSION['pseudo'] = $pseudo;
-    $_SESSION['success'] ="Vous êtes connecté";
-    header('location: ../home.php');
-   	}
+		$user_infos = "SELECT id, pseudo, email FROM users WHERE pseudo = '$pseudo' AND email = '$email' ";
+		$result = mysqli_query($db,$user_infos);
+		$usersInfos = mysqli_fetch_array($result);
+		header('location: ../home.php');
+			//Authentifier l'utilisateur sur le site et récupérer ses données dans des variables globales sessions
+		$_SESSION['auth'] = true;
+		$_SESSION['id'] = $usersInfos['id'];
+		$_SESSION['email'] = $usersInfos['email'];
+		$_SESSION['pseudo'] = $usersInfos['pseudo'];
+		
+		}
+	} else {
+		$errorMsg = "L'utilisateur existe déjà sur le site";
+	}
    }

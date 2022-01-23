@@ -1,4 +1,5 @@
 <?php include('signupAction.php');?>
+<?php include('errors.php');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
   <body>  
      
     <form method="POST" action="signup.php">
-      <?php include('errors.php');?>
+      
       <div class="input-group">
         <label>Pseudo:</label>
          <input type="text" name="pseudo" value="" >

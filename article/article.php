@@ -1,28 +1,35 @@
+
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
-if(isset($_GET['id']) AND !empty($_GET['id'])) {
-   $get_id = htmlspecialchars($_GET['id']);
-   $article = $db->prepare('SELECT * FROM article WHERE id = ?');
-   $article->execute(array($get_id));
-   if($article->rowCount() == 1) {
-      $article = $article->fetch();
-      $titre = $article['titre'];
-      $contenu = $article['contenu'];
-   } else {
-      die('Cet article n\'existe pas !');
-   }
+
+if (isset($_GET["id"]) && !empty($_GET['id'])) {
+
+    $sql = "SELECT * FROM article WHERE id=" . $_GET["id"];
+    $db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
+    $request = mysqli_prepare($db,$sql);
+    $request = mysqli_query($db,$sql);
+    $article = mysqli_fetch_array($request);
+    if (mysqli_num_rows($request) == 0) {
+        header('location: ../home.php');
+    }
+    
 } else {
-   die('Erreur');
+    header("Location: ../home.php");
 }
+
+
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-   <title>Accueil</title>
-   <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $article["titre"] ?></title>
 </head>
 <body>
-   <h1><?= $titre ?></h1>
-   <p><?= $contenu ?></p>
+    <a href="../home.php">Liste des articles</a>
+    <h1><?= stripslashes($article["titre"]) ?></h1>
+    <p><?= stripslashes($article["contenu"]) ?></p>
 </body>
 </html>

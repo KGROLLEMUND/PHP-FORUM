@@ -1,14 +1,16 @@
 
 <?php 
-  session_start();
+    
+    session_start();
+    if(!isset($_SESSION['auth'])){
+        header('Location: register/login.php');
+    }
 
-  if (!isset($_SESSION['pseudo'])) {
-  	$_SESSION['msg'] = "You must login first";
-  	header('location: register/login.php');
-  }
+  
+  
   if (isset($_GET['logout'])) {
   	session_destroy();
-  	unset($_SESSION['pseudo']);
+  	unset($_SESSION['auth']);
   	header('location: register/login.php');
   }
 ?>
@@ -16,7 +18,7 @@
 $db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
 $query = "SELECT * FROM article ORDER BY date_publication DESC";
 $articles = mysqli_query($db, $query);
-$result = mysqli_fetch_assoc($articles);
+$result = mysqli_fetch_array($articles);
 ?>
 
 <!DOCTYPE html>
@@ -31,37 +33,28 @@ $result = mysqli_fetch_assoc($articles);
             <h2>Page d'acceuil</h2>
           </div> 
           <a href="home.php">Acceuil</a>
-          <a href="article/publier_article.php">Publier mon article</a>
-          <a href="assets/html/team.html">L'équipe</a>
-          <a href="assets/html/contact.html">Contact</a>
+          <a href="article/publish_article.php">Publier mon article</a>
+          <a href="register/login.php?logout='1'" style="color:red">Logout</a>    
         </div>
       </nav>
  </head>
   <body>
-   <div class="header">
-    <h2>Page d'acceuil</h2>
-    </div>    
-     <div class="content">
-      <?php if (isset($_SESSION['succcess'])) :?>   
-      <div class="error success">
-        <h3>
-        <?php  
-        echo $_SESSION['success'];
-        unset($_SESSION['success']);
-        ?>
-        </h3>
-      </div>
-      <?php endif ?>
-        <?php if (isset($_SESSION['pseudo'])) :?>
-        <p> Welcome! <strong><?php echo $_SESSION['pseudo'];?></strong></p>
+      
+     
         
-        <?php endif ?>
-
-      <ul>
-        <?php while($a = $result) { ?>
-        <li><a href="article/article.php?id=<?= $a['id'] ?>"><?= $a['titre'] ?></a></li>
-        <?php } ?>
-      <ul>
+        <ul>
+        <?php
+        $db = mysqli_connect('localhost', 'root', '', 'php_exam_db');
+        $sql = "SELECT id, titre FROM article ORDER BY date_publication DESC ";
+        $request = mysqli_query($db,$sql);
+        while ($row = mysqli_fetch_array($request))
+        {
+        ?>
+          <li><a href="article/article.php?id=<?= $row["id"]?>"><?= stripslashes($row['titre']) ?></a></li>
+        <?php
+        }
+        ?>  
+    </ul> 
     </div>
   </body>
 
