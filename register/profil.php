@@ -18,7 +18,7 @@ if (isset($_GET["id"]) && !empty($_GET['id'])) {
       <meta charset="utf-8">
       <nav>
         <div class="navMenu">
-          <a href="../home.php">Acceuil</a>
+          <a href="../home.php">Accueil</a>
           <a href="../article/publish_article.php">Publier mon article</a>
           <a href="login.php?logout='1'" style="color:red">Logout</a>    
         </div>

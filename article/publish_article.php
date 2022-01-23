@@ -31,7 +31,7 @@ if(isset($_POST['titre'], $_POST['contenu'])) {
                 <div class="header">
                     <h2>Redaction article</h2>
                 </div> 
-            <a href="../home.php">Acceuil</a>
+            <a href="../home.php">Accueil</a>
             <a href="article/publish_article.php">publier mon article</a>
             <a href="../register/profil.php">Profil</a>
             </div>

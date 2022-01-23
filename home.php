@@ -30,9 +30,9 @@ $result = mysqli_fetch_array($articles);
      <nav>
         <div class="navMenu">
           <div class="header">
-            <h2>Page d'acceuil</h2>
+            <h2>Page d'Accueil</h2>
           </div> 
-          <a href="home.php">Acceuil</a>
+          <a href="home.php">Accueil</a>
           <a href="article/publish_article.php">Publier mon article</a>
           <a href="register/profil.php">Profil</a>
           <a href="register/login.php?logout='1'" style="color:red">Logout</a>    
